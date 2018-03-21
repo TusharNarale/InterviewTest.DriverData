@@ -10,10 +10,10 @@ namespace InterviewTest
 	{
 		public static void Main(string[] args)
 		{
-			var commandName = args[0];
-			var commandArguments = args.Skip(1).ToArray();
+            var commandName = args[0];
+            var commandArguments = args.Skip(1).ToArray();
 
-			switch (commandName)
+            switch (commandName)
 			{
 				case "analyse":
 					new AnalyseHistoryCommand(commandArguments).Execute();

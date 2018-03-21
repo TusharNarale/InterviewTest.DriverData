@@ -1,5 +1,6 @@
 using System;
 using InterviewTest.DriverData.Analysers;
+using InterviewTest.DriverData.Entities;
 
 namespace InterviewTest.DriverData
 {
@@ -11,8 +12,9 @@ namespace InterviewTest.DriverData
 			{
 				case "friendly":
 					return new FriendlyAnalyser();
-
-				default:
+                case "delivery":
+                    return new DeliveryDriverAnalyser(new DriverConfiguration() { StartTime = new TimeSpan(9,0,0), EndTime = new TimeSpan(17,0,0), MaxSpeed = 30m });
+                default:
 					throw new ArgumentOutOfRangeException(nameof(type), type, "Unrecognised analyser type");
 			}
 		}
