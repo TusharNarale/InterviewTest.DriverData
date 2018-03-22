@@ -15,12 +15,12 @@ namespace InterviewTest.DriverData
 
         public static IReadOnlyCollection<Period> GetHistoryFromFile()
         {
-            string fileData = GetHistoryFileData();
+            string historyData = GetHistoryFileData();
 
-            return ParseHistoryFileData(fileData);
+            return ParseHistoryData(historyData);
         }
 
-        private static IReadOnlyCollection<Period> ParseHistoryFileData(string fileData)
+        private static IReadOnlyCollection<Period> ParseHistoryData(string fileData)
         {
             var dataParser = DataParserLookup.GetParser("json");
             return dataParser.ParseData<IReadOnlyCollection<Period>>(fileData);

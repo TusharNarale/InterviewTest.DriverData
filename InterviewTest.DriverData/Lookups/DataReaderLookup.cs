@@ -5,8 +5,16 @@ using System.Collections.Generic;
 
 namespace InterviewTest.DriverData.Lookups
 {
+    /// <summary>
+    /// Provides mechanism for getting appropriate data reader instance based on reader type text value
+    /// </summary>
     public static class DataReaderLookup
     {
+        /// <summary>
+        /// Returns appropriate data reader based on input text value of reader type
+        /// </summary>
+        /// <param name="type">A text value of parser type</param>
+        /// <returns>An instance of data reader</returns>
         public static IDataReader GetReader(string type)
         {
             if (type == null)

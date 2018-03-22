@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace InterviewTest.DriverData.Helpers
 {
+    /// <summary>
+    /// Provides mechanism for reading data from given file path
+    /// </summary>
     public class FileDataReader : IDataReader
     {
+        /// <summary>
+        /// Reads all file content in a string
+        /// </summary>
+        /// <param name="filePath">Input file path to read</param>
+        /// <returns>File data as a string</returns>
         public string ReadData(string filePath)
         {
             if (File.Exists(filePath))
