@@ -10,9 +10,15 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 		[Test]
 		public void ShouldAnalyseWholePeriodAndReturn1ForDriverRating()
 		{
-			// BONUS: What is AAA?
+            // BONUS: What is AAA?
+            /* It represents unit test writing mechanism which comprises of Arrange, Act and then Assert.
+                Arrange part comprises of preparing/setting up data before testing a method/unit.
+                Act part comprises of calling a unit/method to test
+                Assert part comprises of validating/asserting the expected output/behaviour.
+             */
 
-			var data = new[]
+            // Arrange
+            var data = new[]
 			{
 				new Period
 				{
@@ -34,8 +40,10 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 				DriverRating = 1m
 			};
 
+            // Act
 			var actualResult = new FriendlyAnalyser().Analyse(data);
-
+            
+            // Assert
 			Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
 			Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
 		}

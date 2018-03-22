@@ -43,15 +43,18 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 
         [Test]
 		public void ShouldYieldCorrectValues()
-		{
-			var expectedResult = new HistoryAnalysis
+        {
+            // Arrange
+            var expectedResult = new HistoryAnalysis
 			{
 				AnalysedDuration = TimeSpan.FromHours(1),
 				DriverRating = 0.1813m
 			};
 
+            // Act
 			var actualResult = _getawayDriverAnalyser.Analyse(CannedDrivingData.History);
 
+            // Assert
 			Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
 			Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
 		}
@@ -60,14 +63,17 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [Test]
         public void ShouldYieldZeroRating_ForNullHistory()
         {
+            // Arrange
             var expectedResult = new HistoryAnalysis
             {
                 AnalysedDuration = new TimeSpan(0, 0, 0),
                 DriverRating = 0.0m
             };
 
+            // Act
             var actualResult = _getawayDriverAnalyser.Analyse(null);
 
+            // Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
         }
@@ -75,14 +81,17 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [Test]
         public void ShouldYieldZeroRating_ForEmptyHistory()
         {
+            // Arrange
             var expectedResult = new HistoryAnalysis
             {
                 AnalysedDuration = new TimeSpan(0, 0, 0),
                 DriverRating = 0.0m
             };
 
+            // Act
             var actualResult = _getawayDriverAnalyser.Analyse(CannedDrivingData.EmptyHistory);
 
+            // Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
         }
@@ -90,14 +99,17 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [Test]
         public void ShouldYieldZeroRating_ForPeriodsWithZeroSpeed()
         {
+            // Arrange
             var expectedResult = new HistoryAnalysis
             {
                 AnalysedDuration = new TimeSpan(0, 0, 0),
                 DriverRating = 0.0m
             };
 
+            // Act
             var actualResult = _getawayDriverAnalyser.Analyse(CannedDrivingData.GetawayDriverWithZeroAverageSpeedPeriodHistory);
 
+            // Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
         }
@@ -105,14 +117,17 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [Test]
         public void ShouldYieldZeroRating_ForPeriodsWithSameStartAndEndTime()
         {
+            // Arrange
             var expectedResult = new HistoryAnalysis
             {
                 AnalysedDuration = new TimeSpan(0, 0, 0),
                 DriverRating = 0.0m
             };
 
+            // Act
             var actualResult = _getawayDriverAnalyser.Analyse(CannedDrivingData.DriverSameStartAndEndTimePeriodHistory);
 
+            // Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
         }
@@ -120,14 +135,17 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [Test]
         public void ShouldYieldOneRating_ForSinglePeriodWithMaxSpeedLimit()
         {
+            // Arrange
             var expectedResult = new HistoryAnalysis
             {
                 AnalysedDuration = new TimeSpan(1, 0, 0),
                 DriverRating = 1.0m
             };
 
+            // Act
             var actualResult = _getawayDriverAnalyser.Analyse(CannedDrivingData.GetawayDriverMaxSpeedLimitPeriodHistory);
 
+            // Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
         }
@@ -135,14 +153,17 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [Test]
         public void ShouldYieldOneRating_ForSinglePeriodWithSpeedExceedingMaxSpeedLimit()
         {
+            // Arrange
             var expectedResult = new HistoryAnalysis
             {
                 AnalysedDuration = new TimeSpan(1, 0, 0),
                 DriverRating = 1.0m
             };
-
+            
+            // Act
             var actualResult = _getawayDriverAnalyser.Analyse(CannedDrivingData.GetawayDriverMaxSpeedLimitPeriodHistory);
 
+            // Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
         }
@@ -151,14 +172,17 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [Test]
         public void ShouldYieldCorrectValues_WhenPenaltyIsApplicable()
         {
+            // Arrange
             var expectedResult = new HistoryAnalysis
             {
                 AnalysedDuration = TimeSpan.FromHours(1),
                 DriverRating = 0.1813m * 0.5m
             };
 
+            // Act
             var actualResult = _getawayDriverAnalyserWithPenaltyApplicable.Analyse(CannedDrivingData.History);
 
+            // Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
         }
@@ -166,14 +190,17 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [Test]
         public void ShouldYieldCorrectValues_ForMaxSpeedLimit_WithUndocumentedPeriods_WhenPenaltyIsApplicable()
         {
+            // Arrange
             var expectedResult = new HistoryAnalysis
             {
                 AnalysedDuration = new TimeSpan(1, 0, 0),
                 DriverRating = 0.5m,
             };
 
+            // Act
             var actualResult = _getawayDriverAnalyserWithPenaltyApplicable.Analyse(CannedDrivingData.GetawayDriverMaxSpeedLimitWithUndocumentedPeriodHistory);
 
+            // Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
         }
@@ -181,14 +208,17 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
         [Test]
         public void ShouldYieldCorrectValues_ForHistoryLoadedFromFile()
         {
+            // Arrange
             var expectedResult = new HistoryAnalysis
             {
                 AnalysedDuration = TimeSpan.FromHours(1),
                 DriverRating = 0.1813m
             };
 
+            // Act
             var actualResult = _getawayDriverAnalyser.Analyse(CannedDrivingData.GetHistoryFromFile());
 
+            // Assert
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
         }

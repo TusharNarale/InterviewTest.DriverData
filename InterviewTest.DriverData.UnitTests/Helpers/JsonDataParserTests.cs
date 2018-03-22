@@ -29,10 +29,13 @@ namespace InterviewTest.DriverData.UnitTests.Helpers
         [Test]
         public void ShouldParseCorrectly_ForValidJson()
         {
+            // Arrange
             var jsonData = "[{\"Start\": \"10/13/2016 12:00:00 AM +00:00\",\"End\": \"10/13/2016 8:54:00 AM +00:00\",\"AverageSpeed\": \"0\"}]";
 
+            // Act
             var actualResult = _dataParser.ParseData<IReadOnlyCollection<Period>>(jsonData);
 
+            // Assert
             Assert.IsInstanceOf(typeof(IReadOnlyCollection<Period>), actualResult);
             Assert.IsTrue(actualResult.Any());
             Assert.AreEqual(0,actualResult.First().AverageSpeed);
@@ -49,20 +52,26 @@ namespace InterviewTest.DriverData.UnitTests.Helpers
         [Test]
         public void ShouldReturnNullList_ForEmptyJson()
         {
+            // Arrange
             var jsonData = "";
 
+            // Act
             var actualResult = _dataParser.ParseData<IReadOnlyCollection<Period>>(jsonData);
 
+            // Assert
             Assert.IsNull(actualResult);
         }
         
         [Test]
         public void ShouldReturnNullList_ForNullInput()
         {
+            // Arrange
             string jsonData = null;
-
+            
+            // Act
             var actualResult = _dataParser.ParseData<IReadOnlyCollection<Period>>(jsonData);
 
+            // Assert
             Assert.IsNull(actualResult);
         }
     }

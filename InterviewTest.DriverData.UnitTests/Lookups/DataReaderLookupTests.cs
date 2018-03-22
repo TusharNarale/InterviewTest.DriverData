@@ -11,31 +11,43 @@ namespace InterviewTest.DriverData.UnitTests.Lookups
         [Test]
         public void ShouldReturnFileReaderForValidInput()
         {
+            // Arrange
             var readerType = "file";
             
+            // Act
             var dataReader = DataReaderLookup.GetReader(readerType);
+
+            // Assert
             Assert.IsInstanceOf(typeof(FileDataReader), dataReader);
         }
 
         [Test]
         public void ShouldThrowExceptionForEmptyInput()
         {
+            // Arrange
             var readerType = "";
 
+            // Act and Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => DataReaderLookup.GetReader(readerType));
         }
 
         [Test]
         public void ShouldThrowExceptionForNullInput()
         {
-            Assert.Throws<ArgumentNullException>(() => DataReaderLookup.GetReader(null));
+            // Arrange
+            string readerType = null;
+
+            // Act and Assert
+            Assert.Throws<ArgumentNullException>(() => DataReaderLookup.GetReader(readerType));
         }
 
         [Test]
         public void ShouldThrowExceptionForInvalidInput()
         {
+            // Arrange
             var readerType = "apiFeed";
 
+            // Act and Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => DataReaderLookup.GetReader(readerType));
         }
     }

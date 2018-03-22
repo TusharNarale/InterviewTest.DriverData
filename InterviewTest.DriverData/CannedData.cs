@@ -34,6 +34,8 @@ namespace InterviewTest.DriverData
         }
 
         // BONUS: What's so great about IReadOnlyCollections?
+        // IReadOnlyCollection stores readonly view of collection thus restricting any modifications to collection data.
+        // It is useful when we want to pass list to another client/method but do not want it modified.
         public static readonly IReadOnlyCollection<Period> History = new[]
         {
             new Period

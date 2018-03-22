@@ -11,31 +11,43 @@ namespace InterviewTest.DriverData.UnitTests.Lookups
         [Test]
         public void ShouldReturnJsonParserForValidInput()
         {
+            // Arrange
             var parserType = "json";
             
+            // Act
             var parser = DataParserLookup.GetParser(parserType);
+
+            // Assert
             Assert.IsInstanceOf(typeof(JsonDataParser), parser);
         }
         
         [Test]
         public void ShouldThrowExceptionForEmptyInput()
         {
+            // Arrange
             var parserType = "";
 
+            // Act and Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => DataParserLookup.GetParser(parserType));
         }
 
         [Test]
         public void ShouldThrowExceptionForNullInput()
         {
-            Assert.Throws<ArgumentNullException>(() => DataParserLookup.GetParser(null));
+            // Arrange
+            string parserType = null;
+
+            // Act and Assert
+            Assert.Throws<ArgumentNullException>(() => DataParserLookup.GetParser(parserType));
         }
 
         [Test]
         public void ShouldThrowExceptionForInvalidInput()
         {
+            // Arrange
             var parserType = "xml";
 
+            // Act and Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => DataParserLookup.GetParser(parserType));
         }
     }

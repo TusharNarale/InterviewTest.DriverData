@@ -9,6 +9,7 @@ namespace InterviewTest.Commands
 	public class AnalyseHistoryCommand
 	{
 		// BONUS: What's great about readonly?
+        // Readonly can only be initialized during declaration or in a constructor of encapsulating class, and cannot be changed afterwards.
 		private readonly IAnalyser _analyser;
 
 		public AnalyseHistoryCommand(IReadOnlyCollection<string> arguments)

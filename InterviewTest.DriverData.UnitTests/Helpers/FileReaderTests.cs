@@ -31,18 +31,23 @@ namespace InterviewTest.DriverData.UnitTests.Helpers
         [Test]
         public void ShouldReadFile_ForValidInputPath()
         {
+            // Arrange
             string filePath = ConfigurationManager.AppSettings.Get("HistoryFilePath");
 
+            // Act
             var actualResult = _dataReader.ReadData(filePath);
 
+            // Assert
             Assert.IsNotNull(actualResult);
         }
 
         [Test]
         public void ShouldThrowException_ForInvalidInputPath()
         {
+            // Arrange
             string filePath = "invalidPath";
 
+            // Act and Assert
             Assert.Throws<FileNotFoundException>(() => _dataReader.ReadData(filePath));
         }
     }
