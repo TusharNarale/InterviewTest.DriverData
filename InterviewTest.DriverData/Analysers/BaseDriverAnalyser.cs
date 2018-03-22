@@ -4,10 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace InterviewTest.DriverData.Analysers
-{
-    /// <summary>
-    /// Base driver analyser that 
-    /// </summary>
+{ 
     internal class BaseDriverAnalyser
     {
         protected readonly DriverConfiguration _driverConfiguration;
@@ -37,7 +34,7 @@ namespace InterviewTest.DriverData.Analysers
                 var weightedSum = periodAnalysisList.Select(periodAnalysis => periodAnalysis.Duration * periodAnalysis.Rating).Sum();
                 historyAnalysisResult.DriverRating = weightedSum > 0 ? weightedSum / periodAnalysisList.Sum(periodAnalysis => periodAnalysis.Duration) : 0;
 
-                if (_driverConfiguration.IsPenaltyApplicable)
+                if (_driverConfiguration.IsPenaltyApplicable && periodAnalysisList.Any(periodAnalysis => periodAnalysis.IsUndocumented))
                 {
                     historyAnalysisResult.DriverRating = historyAnalysisResult.DriverRating * _driverConfiguration.PenaltyForUndocumentedPeriod;
                 }

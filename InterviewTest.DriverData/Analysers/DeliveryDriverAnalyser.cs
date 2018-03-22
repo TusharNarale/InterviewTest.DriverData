@@ -11,10 +11,7 @@ namespace InterviewTest.DriverData.Analysers
     // So clients of this feature can use IAnalyser interface and need not worry about what is actual concrete implementation.
     internal class DeliveryDriverAnalyser : BaseDriverAnalyser, IAnalyser
     {
-        public DeliveryDriverAnalyser(DriverConfiguration driverConfiguration): base(driverConfiguration)
-        {
-            
-        }
+        public DeliveryDriverAnalyser(DriverConfiguration driverConfiguration) : base(driverConfiguration) { }
 
         /// <summary>
         /// Analyses the driver period history and computes driver final rating and total duration

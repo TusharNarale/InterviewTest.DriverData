@@ -176,7 +176,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
             var expectedResult = new HistoryAnalysis
             {
                 AnalysedDuration = TimeSpan.FromHours(1),
-                DriverRating = 0.1813m * 0.5m
+                DriverRating = 0.1813m
             };
 
             // Act
@@ -193,8 +193,8 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
             // Arrange
             var expectedResult = new HistoryAnalysis
             {
-                AnalysedDuration = new TimeSpan(1, 0, 0),
-                DriverRating = 0.5m,
+                AnalysedDuration = new TimeSpan(0, 55, 0),
+                DriverRating = 0.4583m,
             };
 
             // Act
