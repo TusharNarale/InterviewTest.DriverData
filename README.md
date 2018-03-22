@@ -1,5 +1,7 @@
 This document illustrates the project implementation approach.
 
+During the project implementation, I have used below SOLID principles such as Dependency inversion, Single responsibility, Open-close Principle. Also, factory design pattern is used for creating instances of Analysers, DataReader and DataParser.
+
 # Task 1 Analysers
 ## Task 1.1 Delivery driver implementation
  -Added DriverConfiguration entity to hold delivery driver configuration that is used to calculate rating and total duration.  
@@ -26,10 +28,10 @@ This document illustrates the project implementation approach.
 ## Task 1.4 Penalise Faulty Recording
 -Added properties IsPenaltyApplicable and PenaltyForUndocumentedPeriod as a part of configuration. Changed final calculation logic to multiply the final rating by PenaltyForUndocumentedPeriod value if IsPenaltyApplicable flag is true for a driver.  
 
-# Task 2
+# Task 2 : Better Analyser Lookup
 -Used Dictionary with delegates in order to get appropriate analyser based on given input type.  
 
-# Task 3
+# Task 3 : Canned Data Schmanned Data
 -Added Json file for history data. Path to Json file is stored in app.config file  
 -Added IDataReader and IDataParser interfaces to define mechanism for getting data from source and parsing it into ReadOnlyCollection of Periods.  
 -Added FileDataReader to get data from file and read into a string.  
@@ -37,6 +39,6 @@ This document illustrates the project implementation approach.
 -Added Lookups for both IDataReader and IDataParser.  
 -Wrote unit tests to test analysers for canned data from file.  
 
-#Task 4
+# Task 4 : Improve the tests
 -Wrote tests for Datareader and DataParser lookups.  
 -Tests for analysers were already written during each of the above tasks.  
