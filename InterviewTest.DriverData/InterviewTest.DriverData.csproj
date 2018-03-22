@@ -66,6 +66,7 @@
     <Compile Include="Period.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="HistoryDataFiles\History.json" />
     <None Include="packages.config" />
     <None Include="readme.md" />
   </ItemGroup>
