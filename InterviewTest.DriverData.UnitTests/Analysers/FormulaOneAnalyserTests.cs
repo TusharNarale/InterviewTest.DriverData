@@ -8,25 +8,36 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 	[TestFixture]
 	public class FormulaOneAnalyserTests
 	{
-        private FormulaOneAnalyser _formulaOneAnalyser;
-        private readonly DriverConfiguration _driverConfiguration = new DriverConfiguration
-        {
-            StartTime = TimeSpan.Zero,
-            EndTime = TimeSpan.Zero,
-            MaxSpeed = 200m,
-            RatingForExceedingSpeedLimit = 1
-        };
-
+        private FormulaOneAnalyser _formulaOneDriverAnalyser;
+        private FormulaOneAnalyser _formulaOneDriverAnalyserWithPenaltyApplicable;
+        
         [SetUp]
         public void Initialize()
         {
-            _formulaOneAnalyser = new FormulaOneAnalyser(_driverConfiguration);
+            _formulaOneDriverAnalyser = new FormulaOneAnalyser(new DriverConfiguration
+            {
+                StartTime = TimeSpan.Zero,
+                EndTime = TimeSpan.Zero,
+                MaxSpeed = 200m,
+                RatingForExceedingSpeedLimit = 1
+            });
+
+            _formulaOneDriverAnalyserWithPenaltyApplicable = new FormulaOneAnalyser(new DriverConfiguration
+            {
+                StartTime = TimeSpan.Zero,
+                EndTime = TimeSpan.Zero,
+                MaxSpeed = 200m,
+                RatingForExceedingSpeedLimit = 1,
+                IsPenaltyApplicable = true,
+                PenaltyForUndocumentedPeriod = 0.5m
+            });
         }
 
         [TearDown]
         public void TearDown()
         {
-            _formulaOneAnalyser = null;
+            _formulaOneDriverAnalyser = null;
+            _formulaOneDriverAnalyserWithPenaltyApplicable = null;
         }
 
         [Test]
@@ -38,7 +49,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
 				DriverRating = 0.1231m
 			};
 
-			var actualResult = _formulaOneAnalyser.Analyse(CannedDrivingData.History);
+			var actualResult = _formulaOneDriverAnalyser.Analyse(CannedDrivingData.History);
 
 			Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
 			Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
@@ -53,7 +64,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.0m
             };
 
-            var actualResult = _formulaOneAnalyser.Analyse(null);
+            var actualResult = _formulaOneDriverAnalyser.Analyse(null);
 
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
@@ -68,7 +79,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.0m
             };
 
-            var actualResult = _formulaOneAnalyser.Analyse(CannedDrivingData.EmptyHistory);
+            var actualResult = _formulaOneDriverAnalyser.Analyse(CannedDrivingData.EmptyHistory);
 
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
@@ -83,7 +94,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.0m
             };
 
-            var actualResult = _formulaOneAnalyser.Analyse(CannedDrivingData.FormulaOneDriverWithZeroAverageSpeedPeriodHistory);
+            var actualResult = _formulaOneDriverAnalyser.Analyse(CannedDrivingData.FormulaOneDriverWithZeroAverageSpeedPeriodHistory);
 
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
@@ -98,14 +109,14 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.0m
             };
 
-            var actualResult = _formulaOneAnalyser.Analyse(CannedDrivingData.DriverSameStartAndEndTimePeriodHistory);
+            var actualResult = _formulaOneDriverAnalyser.Analyse(CannedDrivingData.DriverSameStartAndEndTimePeriodHistory);
 
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
         }
 
         [Test]
-        public void ShouldYieldOneRating_ForPeriodWithMaxSpeedLimit()
+        public void ShouldYieldOneRating_ForSinglePeriodWithMaxSpeedLimit()
         {
             var expectedResult = new HistoryAnalysis
             {
@@ -113,14 +124,14 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 1.0m
             };
 
-            var actualResult = _formulaOneAnalyser.Analyse(CannedDrivingData.FormulaOneDriverMaxSpeedLimitPeriodHistory);
+            var actualResult = _formulaOneDriverAnalyser.Analyse(CannedDrivingData.FormulaOneDriverMaxSpeedLimitPeriodHistory);
 
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
         }
 
         [Test]
-        public void ShouldYieldOneRating_ForPeriodWithSpeedExceedingMaxSpeedLimit()
+        public void ShouldYieldOneRating_ForSinglePeriodWithSpeedExceedingMaxSpeedLimit()
         {
             var expectedResult = new HistoryAnalysis
             {
@@ -128,10 +139,41 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 1.0m
             };
 
-            var actualResult = _formulaOneAnalyser.Analyse(CannedDrivingData.FormulaOneDriverMaxSpeedLimitPeriodHistory);
+            var actualResult = _formulaOneDriverAnalyser.Analyse(CannedDrivingData.FormulaOneDriverMaxSpeedLimitPeriodHistory);
 
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));
+        }
+
+
+        [Test]
+        public void ShouldYieldCorrectValues_WhenPenaltyIsApplicable()
+        {
+            var expectedResult = new HistoryAnalysis
+            {
+                AnalysedDuration = new TimeSpan(10, 03, 0),
+                DriverRating = 0.1231m * 0.5m
+            };
+
+            var actualResult = _formulaOneDriverAnalyserWithPenaltyApplicable.Analyse(CannedDrivingData.History);
+
+            Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
+            Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
+        }
+
+        [Test]
+        public void ShouldYieldCorrectValues_ForMaxSpeedLimit_WithUndocumentedPeriods_WhenPenaltyIsApplicable()
+        {
+            var expectedResult = new HistoryAnalysis
+            {
+                AnalysedDuration = new TimeSpan(7, 0, 0),
+                DriverRating = 0.4375m,
+            };
+
+            var actualResult = _formulaOneDriverAnalyserWithPenaltyApplicable.Analyse(CannedDrivingData.FormulaOneDriverMaxSpeedLimitWithUndocumentedPeriodHistory);
+
+            Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
+            Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
         }
     }
 }

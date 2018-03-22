@@ -13,11 +13,10 @@ namespace InterviewTest.DriverData.Analysers
         /// <summary>
         /// Analyses the driver period history and computes driver final rating and total duration
         /// </summary>
-        /// <param name="history">A readonly collection of driving period</param>
+        /// <param name="history">A readonly collection of driving periods</param>
         /// <returns></returns>
         public HistoryAnalysis Analyse(IReadOnlyCollection<Period> history)
         {
-            //Initialize default analysis result
             var historyAnalysisResult = new HistoryAnalysis
             {
                 AnalysedDuration = new TimeSpan(0, 0, 0),

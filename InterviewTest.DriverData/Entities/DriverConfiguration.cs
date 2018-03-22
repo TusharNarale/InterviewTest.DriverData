@@ -15,5 +15,9 @@ namespace InterviewTest.DriverData.Entities
         public decimal MaxSpeed { get; set; }
 
         public decimal RatingForExceedingSpeedLimit { get; set; }
+        
+        public bool IsPenaltyApplicable { get; set; }
+
+        public decimal PenaltyForUndocumentedPeriod { get; set; }
     }
 }

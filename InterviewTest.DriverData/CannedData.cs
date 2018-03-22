@@ -57,7 +57,7 @@ namespace InterviewTest.DriverData
         public static readonly IReadOnlyCollection<Period> EmptyHistory = new Period[] { };
 
         public static readonly IReadOnlyCollection<Period> DeliveryDriverNonPermittedTimePeriodHistory = new[]
-       {
+        {
             new Period
             {
                 Start = _day + new TimeSpan(0, 0, 0),
@@ -85,7 +85,7 @@ namespace InterviewTest.DriverData
         };
 
         public static readonly IReadOnlyCollection<Period> DeliveryDriverExceedingSpeedLimitPeriodHistory = new[]
-{
+        {
             new Period
             {
                 Start = _day + new TimeSpan(9, 0, 0),
@@ -113,7 +113,7 @@ namespace InterviewTest.DriverData
         };
 
         public static readonly IReadOnlyCollection<Period> DeliveryDriverMaxSpeedLimitPeriodHistory = new[]
-{
+        {
             new Period
             {
                 Start = _day + new TimeSpan(9, 0, 0),
@@ -124,7 +124,7 @@ namespace InterviewTest.DriverData
 
 
         public static readonly IReadOnlyCollection<Period> DriverSameStartAndEndTimePeriodHistory = new[]
-{
+        {
             new Period
             {
                 Start = _day + new TimeSpan(9, 0, 0),
@@ -135,7 +135,7 @@ namespace InterviewTest.DriverData
 
 
         public static readonly IReadOnlyCollection<Period> DeliveryDriverStartTimeGreaterThanAllowedTimeWithEndTimeGreaterThanAllowedTimeAndMaxSpeedLimit = new[]
-{
+        {
             new Period
             {
                 Start = _day + new TimeSpan(8, 0, 0),
@@ -144,8 +144,24 @@ namespace InterviewTest.DriverData
             }
         };
 
+        public static readonly IReadOnlyCollection<Period> DeliveryDriverMaxSpeedLimitWithUndocumentedPeriodHistory = new[]
+        {
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 0, 0),
+                End = _day + new TimeSpan(11, 0, 0),
+                AverageSpeed = 30m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(12, 0, 0),
+                End = _day + new TimeSpan(17, 0, 0),
+                AverageSpeed = 30m
+            }
+        };
+
         public static readonly IReadOnlyCollection<Period> FormulaOneDriverWithZeroAverageSpeedPeriodHistory = new[]
-{
+        {
             new Period
             {
                 Start = _day + new TimeSpan(0, 0, 0),
@@ -173,7 +189,7 @@ namespace InterviewTest.DriverData
         };
 
         public static readonly IReadOnlyCollection<Period> FormulaOneDriverMaxSpeedLimitPeriodHistory = new[]
-{
+        {
             new Period
             {
                 Start = _day + new TimeSpan(9, 0, 0),
@@ -183,7 +199,7 @@ namespace InterviewTest.DriverData
         };
 
         public static readonly IReadOnlyCollection<Period> FormulaOneDriverExceedingMaxSpeedLimitPeriodHistory = new[]
-{
+        {
             new Period
             {
                 Start = _day + new TimeSpan(9, 0, 0),
@@ -193,8 +209,24 @@ namespace InterviewTest.DriverData
         };
 
 
+        public static readonly IReadOnlyCollection<Period> FormulaOneDriverMaxSpeedLimitWithUndocumentedPeriodHistory = new[]
+        {
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 0, 0),
+                End = _day + new TimeSpan(11, 0, 0),
+                AverageSpeed = 200m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(12, 0, 0),
+                End = _day + new TimeSpan(17, 0, 0),
+                AverageSpeed = 200m
+            }
+        };
+
         public static readonly IReadOnlyCollection<Period> GetawayDriverWithZeroAverageSpeedPeriodHistory = new[]
-    {
+        {
             new Period
             {
                 Start = _day + new TimeSpan(0, 0, 0),
@@ -222,7 +254,7 @@ namespace InterviewTest.DriverData
         };
 
         public static readonly IReadOnlyCollection<Period> GetawayDriverMaxSpeedLimitPeriodHistory = new[]
-    {
+        {
             new Period
             {
                 Start = _day + new TimeSpan(9, 0, 0),
@@ -232,12 +264,28 @@ namespace InterviewTest.DriverData
         };
 
         public static readonly IReadOnlyCollection<Period> GetawayDriverExceedingMaxSpeedLimitPeriodHistory = new[]
-    {
+        {
             new Period
             {
                 Start = _day + new TimeSpan(9, 0, 0),
                 End = _day + new TimeSpan(17, 0, 0),
                 AverageSpeed = 85m
+            }
+        };
+
+        public static readonly IReadOnlyCollection<Period> GetawayDriverMaxSpeedLimitWithUndocumentedPeriodHistory = new[]
+        {
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 0, 0),
+                End = _day + new TimeSpan(11, 0, 0),
+                AverageSpeed = 80m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(12, 0, 0),
+                End = _day + new TimeSpan(17, 0, 0),
+                AverageSpeed = 80m
             }
         };
     }

@@ -5,12 +5,10 @@ using System.Linq;
 
 namespace InterviewTest.DriverData.Analysers
 {
-	// BONUS: Why internal?
-	internal class GetawayDriverAnalyser : BaseDriverAnalyser, IAnalyser
-	{
-        public GetawayDriverAnalyser(DriverConfiguration driverConfiguration) : base(driverConfiguration)
-        {
-        }
+    // BONUS: Why internal?
+    internal class GetawayDriverAnalyser : BaseDriverAnalyser, IAnalyser
+    {
+        public GetawayDriverAnalyser(DriverConfiguration driverConfiguration) : base(driverConfiguration) { }
 
         /// <summary>
         /// Analyses the driver period history and computes driver final rating and total duration
@@ -19,8 +17,7 @@ namespace InterviewTest.DriverData.Analysers
         /// <returns></returns>
 
         public HistoryAnalysis Analyse(IReadOnlyCollection<Period> history)
-		{
-            //Initialize default analysis result
+        {
             var historyAnalysisResult = new HistoryAnalysis
             {
                 AnalysedDuration = new TimeSpan(0, 0, 0),
@@ -39,9 +36,7 @@ namespace InterviewTest.DriverData.Analysers
             }
 
             return historyAnalysisResult;
-
         }
-
 
         /// <summary>
         /// Gets valid periods
@@ -50,16 +45,14 @@ namespace InterviewTest.DriverData.Analysers
         /// <returns>An IEnumerable that contains valid periods</returns>
         protected override IEnumerable<Period> GetValidPeriods(IEnumerable<Period> history)
         {
-            var validPeriods = base.GetValidPeriods(history);
-
-            var filteredPeriods = validPeriods.SkipWhile(period => period.AverageSpeed <= 0).ToList();
+            var filteredPeriods = history.SkipWhile(period => period.AverageSpeed <= 0).ToList();
 
             if (!filteredPeriods.Any())
                 return filteredPeriods;
 
             var lastNonZeroPeriodIndex = filteredPeriods.IndexOf(filteredPeriods.LastOrDefault(p => p.AverageSpeed > 0));
 
-            return filteredPeriods.Take(lastNonZeroPeriodIndex + 1);
+            return base.GetValidPeriods(filteredPeriods.Take(lastNonZeroPeriodIndex + 1));
         }
     }
 }

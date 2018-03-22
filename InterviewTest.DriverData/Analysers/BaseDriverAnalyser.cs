@@ -37,6 +37,11 @@ namespace InterviewTest.DriverData.Analysers
                 var weightedSum = periodAnalysisList.Select(periodAnalysis => periodAnalysis.Duration * periodAnalysis.Rating).Sum();
                 historyAnalysisResult.DriverRating = weightedSum > 0 ? weightedSum / periodAnalysisList.Sum(periodAnalysis => periodAnalysis.Duration) : 0;
 
+                if (_driverConfiguration.IsPenaltyApplicable)
+                {
+                    historyAnalysisResult.DriverRating = historyAnalysisResult.DriverRating * _driverConfiguration.PenaltyForUndocumentedPeriod;
+                }
+
                 var documentedDuration = periodAnalysisList.Where(periodAnalysis => !periodAnalysis.IsUndocumented).Sum(periodAnalysis => periodAnalysis.Duration);
                 historyAnalysisResult.AnalysedDuration = new TimeSpan(0, 0, (int)documentedDuration);
             }
@@ -100,7 +105,7 @@ namespace InterviewTest.DriverData.Analysers
                     // When period average speed is greater than maximum speed then set rating to 0, else calculate rating based on average and maximum speed
                     periodAnalysis.Rating = period.AverageSpeed > _driverConfiguration.MaxSpeed ?
                                             _driverConfiguration.RatingForExceedingSpeedLimit : period.AverageSpeed / _driverConfiguration.MaxSpeed;
-
+                    
                     periodAnalysisList.Add(periodAnalysis);
                 }
             }
