@@ -305,14 +305,14 @@ namespace InterviewTest.DriverData
         {
             new Period
             {
-                Start = _day + new TimeSpan(9, 0, 0),
-                End = _day + new TimeSpan(11, 0, 0),
+                Start = _day + new TimeSpan(13, 0, 0),
+                End = _day + new TimeSpan(13, 25, 0),
                 AverageSpeed = 80m
             },
             new Period
             {
-                Start = _day + new TimeSpan(12, 0, 0),
-                End = _day + new TimeSpan(17, 0, 0),
+                Start = _day + new TimeSpan(13, 30, 0),
+                End = _day + new TimeSpan(14, 0, 0),
                 AverageSpeed = 80m
             }
         };

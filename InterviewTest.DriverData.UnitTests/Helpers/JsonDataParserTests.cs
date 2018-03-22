@@ -41,14 +41,16 @@ namespace InterviewTest.DriverData.UnitTests.Helpers
             Assert.AreEqual(0,actualResult.First().AverageSpeed);
         }
 
-        //[Test]
-        //public void ShouldThrowException_ForInvalidJson()
-        //{
-        //    var jsonData = "[{\"Start\": \"10/13/2016 12:00:00 AM +00:00\",]";
-            
-        //    Assert.Throws<Newtonsoft.Json.JsonReaderException>(() => _dataParser.ParseData<IReadOnlyCollection<Period>>(jsonData));
-        //}
-        
+        [Test]
+        public void ShouldThrowException_ForInvalidJson()
+        {
+            // Arrange
+            var jsonData = "[{\"Start\": \"10/13/2016 12:00:00 AM +00:00\",]";
+
+            // Act and Assert
+            Assert.Throws<Newtonsoft.Json.JsonReaderException>(() => _dataParser.ParseData<IReadOnlyCollection<Period>>(jsonData));
+        }
+
         [Test]
         public void ShouldReturnNullList_ForEmptyJson()
         {
