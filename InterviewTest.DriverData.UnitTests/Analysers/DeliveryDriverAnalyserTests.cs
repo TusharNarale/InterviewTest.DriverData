@@ -106,7 +106,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 DriverRating = 0.0m
             };
 
-            var actualResult = deliveryDriverAnalyser.Analyse(CannedDrivingData.DeliveryDriverSameStartAndEndTimePeriodHistory);
+            var actualResult = deliveryDriverAnalyser.Analyse(CannedDrivingData.DriverSameStartAndEndTimePeriodHistory);
 
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating));

@@ -13,5 +13,7 @@ namespace InterviewTest.DriverData.Entities
         public TimeSpan EndTime { get; set; }
 
         public decimal MaxSpeed { get; set; }
+
+        public decimal RatingForExceedingSpeedLimit { get; set; }
     }
 }

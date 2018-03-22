@@ -123,7 +123,7 @@ namespace InterviewTest.DriverData
         };
 
 
-        public static readonly IReadOnlyCollection<Period> DeliveryDriverSameStartAndEndTimePeriodHistory = new[]
+        public static readonly IReadOnlyCollection<Period> DriverSameStartAndEndTimePeriodHistory = new[]
 {
             new Period
             {
@@ -141,6 +141,54 @@ namespace InterviewTest.DriverData
                 Start = _day + new TimeSpan(8, 0, 0),
                 End = _day + new TimeSpan(18, 0, 0),
                 AverageSpeed = 30m
+            }
+        };
+
+        public static readonly IReadOnlyCollection<Period> FormulaOneDriverWithZeroAverageSpeedPeriodHistory = new[]
+{
+            new Period
+            {
+                Start = _day + new TimeSpan(0, 0, 0),
+                End = _day + new TimeSpan(2, 0, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(3, 10, 0),
+                End = _day + new TimeSpan(4, 0, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(5, 20, 0),
+                End = _day + new TimeSpan(7, 0, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(7, 12, 0),
+                End = _day + new TimeSpan(8, 59, 0),
+                AverageSpeed = 0m
+            }
+        };
+
+        public static readonly IReadOnlyCollection<Period> FormulaOneDriverMaxSpeedLimitPeriodHistory = new[]
+{
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 0, 0),
+                End = _day + new TimeSpan(17, 0, 0),
+                AverageSpeed = 200m
+            }
+        };
+
+        public static readonly IReadOnlyCollection<Period> FormulaOneDriverExceedingMaxSpeedLimitPeriodHistory = new[]
+{
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 0, 0),
+                End = _day + new TimeSpan(17, 0, 0),
+                AverageSpeed = 210m
             }
         };
     }

@@ -13,7 +13,9 @@ namespace InterviewTest.DriverData
 				case "friendly":
 					return new FriendlyAnalyser();
                 case "delivery":
-                    return new DeliveryDriverAnalyser(new DriverConfiguration() { StartTime = new TimeSpan(9,0,0), EndTime = new TimeSpan(17,0,0), MaxSpeed = 30m });
+                    return new DeliveryDriverAnalyser(new DriverConfiguration() { StartTime = new TimeSpan(9,0,0), EndTime = new TimeSpan(17,0,0), MaxSpeed = 30m, RatingForExceedingSpeedLimit = 0.0m });
+                case "formulaone":
+                    return new FormulaOneAnalyser(new DriverConfiguration() { StartTime = TimeSpan.Zero, EndTime = TimeSpan.Zero, MaxSpeed = 200m, RatingForExceedingSpeedLimit = 1.0m });
                 default:
 					throw new ArgumentOutOfRangeException(nameof(type), type, "Unrecognised analyser type");
 			}
