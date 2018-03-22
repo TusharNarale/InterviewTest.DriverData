@@ -14,16 +14,20 @@ AnalyserLookup is modified to get DeliveryDriverAnalyser instance for type = "de
 Added unit tests to DeliveryDriverAnalyserTests to check positive as well as negative scenarios
 
 ## Task 1.2 Formula One driver implementation
+-Implemented the code to get valid periods, analyse documented and undocumented periods into list of PeriodAnalysis instances. Then calculate final rating and duration for the driver.
+-Added property RatingForExceedingSpeedLimit to handle ratings in scenario when speed limit is exceeded.
+-Added unit tests to test positive as well as negative scenarios.
+
 ## Task 1.3 Getaway driver implementation
-Implemented the code to get valid periods, analyse documented and undocumented periods into list of PeriodAnalysis instances. Then calculate final rating and duration for the driver.
-Added property RatingForExceedingSpeedLimit to calculate ratings for FormulaOne and Getaway drivers.
-Added unit tests to test positive as well as negative scenarios for both FormulaOne and Getaway driver analysers.
+-Implemented the code to get valid periods, analyse documented and undocumented periods into list of PeriodAnalysis instances. Then calculate final rating and duration for the driver.
+-Added property RatingForExceedingSpeedLimit to handle ratings in scenario when speed limit is exceeded.
+-Added unit tests to test positive as well as negative scenarios.
 
 ## Task 1.4 Penalise Faulty Recording
-Added properties IsPenaltyApplicable and PenaltyForUndocumentedPeriod as a part of configuration. Changed final calculation logic to multiply the final rating by PenaltyForUndocumentedPeriod value if IsPenaltyApplicable flag is true for a driver.
+-Added properties IsPenaltyApplicable and PenaltyForUndocumentedPeriod as a part of configuration. Changed final calculation logic to multiply the final rating by PenaltyForUndocumentedPeriod value if IsPenaltyApplicable flag is true for a driver.
 
 # Task 2
-Used Dictionary with delegates in order to get appropriate analyser based on given input type.
+-Used Dictionary with delegates in order to get appropriate analyser based on given input type.
 
 # Task 3
 Added Json file for history data. Path to Json file is stored in app.config file
