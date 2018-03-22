@@ -175,5 +175,20 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
         }
+
+        [Test]
+        public void ShouldYieldCorrectValues_ForHistoryLoadedFromFile()
+        {
+            var expectedResult = new HistoryAnalysis
+            {
+                AnalysedDuration = new TimeSpan(10, 3, 0),
+                DriverRating = 0.1231m
+            };
+
+            var actualResult = _formulaOneDriverAnalyser.Analyse(CannedDrivingData.GetHistoryFromFile());
+
+            Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
+            Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
+        }
     }
 }

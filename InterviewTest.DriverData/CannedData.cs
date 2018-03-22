@@ -1,11 +1,37 @@
-﻿using System;
+﻿using InterviewTest.DriverData.Helpers;
+using InterviewTest.DriverData.Interfaces;
+using InterviewTest.DriverData.Lookups;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace InterviewTest.DriverData
 {
     public static class CannedDrivingData
     {
         private static readonly DateTimeOffset _day = new DateTimeOffset(2016, 10, 13, 0, 0, 0, 0, TimeSpan.Zero);
+
+        private static string historyFilePath = ConfigurationManager.AppSettings.Get("HistoryFilePath");
+
+        public static IReadOnlyCollection<Period> GetHistoryFromFile()
+        {
+            string fileData = GetHistoryFileData();
+
+            return ParseHistoryFileData(fileData);
+        }
+
+        private static IReadOnlyCollection<Period> ParseHistoryFileData(string fileData)
+        {
+            var dataParser = DataParserLookup.GetParser("json");
+            return dataParser.ParseData<IReadOnlyCollection<Period>>(fileData);
+        }
+
+        private static string GetHistoryFileData()
+        {
+            var dataReader = DataReaderLookup.GetReader("file");
+            var fileData = dataReader.ReadData(historyFilePath);
+            return fileData;
+        }
 
         // BONUS: What's so great about IReadOnlyCollections?
         public static readonly IReadOnlyCollection<Period> History = new[]

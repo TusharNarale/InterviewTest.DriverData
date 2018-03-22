@@ -9,13 +9,16 @@ namespace InterviewTest.DriverData
     {
         public static IAnalyser GetAnalyser(string type)
         {
-            if (analyserList.ContainsKey(type))
-                return analyserList[type]();
+            if (type == null)
+                throw new ArgumentNullException(nameof(type), "Null parser type");
 
-            throw new ArgumentOutOfRangeException(nameof(type), type, "Unrecognised analyser type");
+            if (!analyserList.ContainsKey(type))
+                throw new ArgumentOutOfRangeException(nameof(type), type, "Unrecognised analyser type");
+
+                return analyserList[type]();
         }
         
-        public static Dictionary<string, Func<IAnalyser>> analyserList =
+        private static Dictionary<string, Func<IAnalyser>> analyserList =
                     new Dictionary<string, Func<IAnalyser>>
                 {
                     { "delivery", DeliveryDriverAnalyser },

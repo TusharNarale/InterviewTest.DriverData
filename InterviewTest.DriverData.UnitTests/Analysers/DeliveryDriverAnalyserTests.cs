@@ -10,7 +10,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
     {
         private DeliveryDriverAnalyser _deliveryDriverAnalyser;
         private DeliveryDriverAnalyser _deliveryDriverAnalyserWithPenaltyApplicable;
-        
+
         [SetUp]
         public void Initialize()
         {
@@ -20,7 +20,7 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
                 EndTime = new TimeSpan(17, 0, 0),
                 MaxSpeed = 30m
             });
-            
+
             _deliveryDriverAnalyserWithPenaltyApplicable = new DeliveryDriverAnalyser(new DriverConfiguration
             {
                 StartTime = new TimeSpan(9, 0, 0),
@@ -184,6 +184,21 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
             };
 
             var actualResult = _deliveryDriverAnalyserWithPenaltyApplicable.Analyse(CannedDrivingData.DeliveryDriverMaxSpeedLimitWithUndocumentedPeriodHistory);
+
+            Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
+            Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
+        }
+
+        [Test]
+        public void ShouldYieldCorrectValues_ForHistoryLoadedFromFile()
+        {
+            var expectedResult = new HistoryAnalysis
+            {
+                AnalysedDuration = new TimeSpan(7, 45, 0),
+                DriverRating = 0.7638m
+            };
+
+            var actualResult = _deliveryDriverAnalyser.Analyse(CannedDrivingData.GetHistoryFromFile());
 
             Assert.That(actualResult.AnalysedDuration, Is.EqualTo(expectedResult.AnalysedDuration));
             Assert.That(actualResult.DriverRating, Is.EqualTo(expectedResult.DriverRating).Within(0.001m));
