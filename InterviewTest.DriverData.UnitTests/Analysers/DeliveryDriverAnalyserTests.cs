@@ -22,6 +22,12 @@ namespace InterviewTest.DriverData.UnitTests.Analysers
             deliveryDriverAnalyser = new DeliveryDriverAnalyser(driverConfiguration);
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            deliveryDriverAnalyser = null;
+        }
+
         [Test]
         public void ShouldYieldCorrectValues()
         {

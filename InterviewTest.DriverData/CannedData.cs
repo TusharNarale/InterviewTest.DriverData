@@ -191,5 +191,55 @@ namespace InterviewTest.DriverData
                 AverageSpeed = 210m
             }
         };
+
+
+        public static readonly IReadOnlyCollection<Period> GetawayDriverWithZeroAverageSpeedPeriodHistory = new[]
+    {
+            new Period
+            {
+                Start = _day + new TimeSpan(0, 0, 0),
+                End = _day + new TimeSpan(2, 0, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(3, 10, 0),
+                End = _day + new TimeSpan(4, 0, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(5, 20, 0),
+                End = _day + new TimeSpan(7, 0, 0),
+                AverageSpeed = 0m
+            },
+            new Period
+            {
+                Start = _day + new TimeSpan(7, 12, 0),
+                End = _day + new TimeSpan(8, 59, 0),
+                AverageSpeed = 0m
+            }
+        };
+
+        public static readonly IReadOnlyCollection<Period> GetawayDriverMaxSpeedLimitPeriodHistory = new[]
+    {
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 0, 0),
+                End = _day + new TimeSpan(17, 0, 0),
+                AverageSpeed = 80m
+            }
+        };
+
+        public static readonly IReadOnlyCollection<Period> GetawayDriverExceedingMaxSpeedLimitPeriodHistory = new[]
+    {
+            new Period
+            {
+                Start = _day + new TimeSpan(9, 0, 0),
+                End = _day + new TimeSpan(17, 0, 0),
+                AverageSpeed = 85m
+            }
+        };
     }
+
 }
